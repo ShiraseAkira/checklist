@@ -2,3 +2,4 @@ apache/
 php/
 tmp/
 vendor/
+.env
