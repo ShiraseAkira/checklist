@@ -34,6 +34,21 @@ $vk_auth_uri = VK_AUTH_URI . '?' . http_build_query($vk_auth_params);
         <button type="submit">Выход</button>
     </form>
 
+<?php 
+    $stmt = pdo()->query("SELECT * FROM `checklists`", PDO::FETCH_ASSOC);
+    $rows = $stmt->fetchAll();
+    foreach($rows as $row) { ?>
+        <h2>
+            <a href="<?= "/checklist.php?id_checklist=" . $row['id_checklist'] ?>">
+                <?= $row['name'] ?>
+            </a>
+        </h2>
+        <div>
+            <?= $row['description'] ?>
+        </div>
+    <?php }
+?>
+
 <?php } else { ?>
     <?php flash(); ?>
     <form method="post" action="do_login.php">

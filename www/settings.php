@@ -15,5 +15,3 @@ const VK_REDIRECT_URI = 'http://localhost/vk-auth.php';
 const VK_USERS_GET_URI = 'https://api.vk.com/method/users.get';
 const VK_REQUIRED_USER_INFO = 'uid,first_name,last_name,screen_name';
 const VK_API_VERSION = '5.131';
-
-?>

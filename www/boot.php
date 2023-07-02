@@ -32,4 +32,3 @@ function flash(?string $message = null)
         unset($_SESSION['flash']);
     }
 }
-?>

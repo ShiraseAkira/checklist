@@ -27,5 +27,3 @@ if (password_verify($_POST['password'], $user['password'])) {
 
 flash('Пароль неверен');
 header('Location: /');
-
-?>
