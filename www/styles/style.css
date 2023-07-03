@@ -27,8 +27,13 @@ body {
 }
 
 .wrapper {
-    width: 50%;
+    width: 90%;
     margin: 0 auto;
+}
+
+header {
+    padding: 20px 10px;
+    border-bottom: 1px solid #cccccc;
 }
 
 header,
@@ -43,7 +48,7 @@ header h3 {
 }
 
 .checklist {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #cccccc;
     padding: 10px;
 }
 
@@ -55,15 +60,80 @@ header h3 {
     margin: 0;
 }
 
-.checklist a {
+.checklist a,
+header a {
     text-decoration: none;
 }
 
 .checklist a,
-.checklist a:visited {
+.checklist a:visited,
+header a,
+header a:visited {
     color: #000000;
 }
 
 .checklist-description {
     margin-top: 10px;
+}
+
+.checklist-title {
+    margin: 0;
+    padding: 20px 10px;
+    border-bottom: 1px solid #cccccc;
+    text-align: center;
+}
+
+.hide {
+    display: none;
+}
+
+ul {
+    list-style: none;    
+}
+
+.list-item {
+    padding: 20px 0 0;
+    margin: 0;
+}
+
+.list-item li {
+    margin-bottom: 5px;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #eeeeee;
+    font-weight: 600;
+}
+
+.item-header button {
+    border: none;
+}
+
+.item-header button:hover {
+    cursor: pointer;
+}
+
+.item-content {
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.item-content a,
+.item-content a:visited {
+    color: #aaaaaa;
+}
+
+.item-content p {
+    margin: 0 0 20px;
+}
+
+.list-subitem {
+    padding-left: 20px;
+}
+
+.list-subitem li {
+    margin-bottom: 10px;
 }

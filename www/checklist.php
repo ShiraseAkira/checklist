@@ -88,12 +88,11 @@ if(!isset($_SESSION['id_user'])) {
              ]);
         }
 
-
-
-        echo "<ul>";
+        echo "<ul class='list-item'>";
         foreach($items as $item) {    
-            echo "<li class='list-item' data-id-item='".$item['id_item']."'>";
-            echo "<div><label><input type='checkbox'>".$item['name']."</label>";
+            echo "<li>";
+            echo "<div class='item-header'><label><input type='checkbox' data-id-item='"
+            .$item['id_item']."'>".$item['name']."</label>";
             if ($item['has_hideable']){
                 echo "<button>+</button>";
             }
@@ -111,10 +110,11 @@ if(!isset($_SESSION['id_user'])) {
             });
 
             if(!empty($corr_subitems)) {
-                echo "<ul>";
+                echo "<ul class='list-subitem'>";
                 foreach($corr_subitems as $subitem){
-                    echo "<li class='list-subitem' data-id-subitem='".$subitem['id_subitem']."'>";
-                    echo "<label><input type='checkbox'>".$subitem['content']. "</label>";
+                    echo "<li>";
+                    echo "<label><input type='checkbox' data-id-subitem='"
+                    .$subitem['id_subitem']."'>".$subitem['content']. "</label>";
                     echo "</li>"; 
                 }
                 echo "</ul>";
@@ -128,6 +128,7 @@ if(!isset($_SESSION['id_user'])) {
     }
 }
 ?>
-
+        </main>
+    </div>
 </body>
 </html>
