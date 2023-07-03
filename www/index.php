@@ -36,7 +36,7 @@ $vk_auth_uri = VK_AUTH_URI . '?' . http_build_query($vk_auth_params);
             <div>
                 <div>
                     <h3>
-                        <?php echo $_SESSION['display_name'] ?> 
+                        <?= $_SESSION['display_name'] ?> 
                     </h3>
                 </div>
                 <form method="post" action="do_logout.php">
@@ -53,7 +53,7 @@ $vk_auth_uri = VK_AUTH_URI . '?' . http_build_query($vk_auth_params);
     foreach($rows as $row) { ?>
         <div class="checklist">
             <h2>
-                <a href="<?= "/checklist.php?id_checklist=" . $row['id_checklist'] ?>">
+                <a href="<?= "/checklist.php?id_checklist={$row['id_checklist']}"?>">
                     <?= $row['name'] ?>
                 </a>
             </h2>

@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles/style.css">
     <title>Checklist</title>
+    <script defer src="scripts/script.js"></script>
 </head>
 <body>
 
 <?php
 require_once 'boot.php';
+require_once 'checklist_functions.php';
 
 if(!isset($_SESSION['id_user'])) {
     header('Location: /');
@@ -19,7 +21,7 @@ if(!isset($_SESSION['id_user'])) {
             <div>
                 <div>
                     <h3>
-                        <?php echo $_SESSION['display_name'] ?> 
+                        <?= $_SESSION['display_name'] ?> 
                     </h3>
                 </div>
                 <form method="post" action="do_logout.php">
@@ -31,77 +33,29 @@ if(!isset($_SESSION['id_user'])) {
     <div class="wrapper">
         <main>
 <?php 
-    $stmt = pdo()->prepare("SELECT `name` FROM `checklists` WHERE `id_checklist` = :id_checklist");
-    $stmt->execute(['id_checklist' => $_GET['id_checklist']]);
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo "<h2 class='checklist-title'>".getChecklistTitle()."</h2>";
 
-    if ($stmt->rowCount() == 0) {
-        header('Location: /');
-        die;
-    }
-    echo "<h2 class='checklist-title'>".$rows[0]['name']."</h2>";
-
-    $stmt = pdo()->prepare("SELECT i.`id_item`, i.`name`, i.`description`, si.`id_subitem`, si.`content`, 
-                            i_s.`is_checked` AS is_item_checked, si_s.`is_checked` AS is_subitem_checked
-                            FROM `checklist_items` AS i
-                            LEFT JOIN `item_states` AS i_s
-                            ON i.`id_item` = i_s.`id_item` AND i_s.`id_user` = :id_user
-                            LEFT JOIN `checklist_subitems` AS si
-                            ON i.`id_item` = si.`id_item`
-                            LEFT JOIN `subitem_states` AS si_s
-                            ON si.`id_subitem` = si_s.`id_subitem` AND si_s.`id_user` = :id_user
-                            WHERE i.`id_checklist` = :id_checklist
-                            ORDER BY i.`id_item`, si.`id_subitem`");
-    $stmt->execute([
-        'id_checklist' => $_GET['id_checklist'],
-        'id_user' => $_SESSION['id_user']
-    ]);
-
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = getChecklistData();
     if ($stmt->rowCount() == 0) {
         echo "<h2 class='checklist-title'>Пустой чеклист</h2>";
     } else {
-        $items = [];
-        foreach ($rows as $row) {
-            if (in_array($row['id_item'], array_column($items, 'id_item'))) {
-                continue;
-             }
-             array_push($items, [
-                'id_item' => $row['id_item'],
-                'name' => $row['name'],
-                'has_hideable' => isset($row['description']) or isset($row['id_subitem']),
-                'description' => $row['description'],
-                'is_item_checked' => $row['is_item_checked']
-             ]);
-        }
-
-        $subitems = [];
-        foreach ($rows as $row) {
-            if (!isset($row['id_subitem']) or in_array($row['id_subitem'], array_column($subitems, 'id_subitem'))) {
-                continue;
-             }
-             array_push($subitems, [
-                'id_subitem' => $row['id_subitem'],
-                'id_item' => $row['id_item'],
-                'content' => $row['content'],
-                'is_subitem_checked' => $row['is_subitem_checked']
-             ]);
-        }
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $items = getChecklistImtes($rows);
+        $subitems = getChecklistSubitems($rows);
 
         echo "<ul class='list-item'>";
         foreach($items as $item) {    
-            echo "<li>";
-            echo "<div class='item-header'><label><input type='checkbox' data-id-item='"
-            .$item['id_item']."'>".$item['name']."</label>";
+            $state = $item['is_item_checked'] ? " checked" : "";
+            echo "<li><div class='item-header'><label><input type='checkbox' data-id-item='{$item['id_item']}'$state>{$item['name']}</label>";
             if ($item['has_hideable']){
-                echo "<button>+</button>";
+                echo "<button class='toggle'>+</button>";
             }
             echo "</div>";
             if ($item['has_hideable']){
                 echo "<div class='item-content hide'>";
             }
             if (isset($item['description'])){
-                echo "<p>".$item['description']."</p>";
+                echo "<p>{$item['description']}</p>";
             }                
             
             $item_id = $item['id_item'];
@@ -112,10 +66,8 @@ if(!isset($_SESSION['id_user'])) {
             if(!empty($corr_subitems)) {
                 echo "<ul class='list-subitem'>";
                 foreach($corr_subitems as $subitem){
-                    echo "<li>";
-                    echo "<label><input type='checkbox' data-id-subitem='"
-                    .$subitem['id_subitem']."'>".$subitem['content']. "</label>";
-                    echo "</li>"; 
+                    $state = $subitem['is_subitem_checked'] ? " checked" : "";
+                    echo "<li><label><input type='checkbox' data-id-subitem='{$subitem['id_subitem']}'$state>{$subitem['content']}</label></li>";
                 }
                 echo "</ul>";
             }

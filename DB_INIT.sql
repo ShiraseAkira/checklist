@@ -41,8 +41,11 @@ INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `de
 INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('1', '301 редирект', 'Описание ...');
 INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`) VALUES ('1', '404 страница');
 INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`) VALUES ('1', 'Ошибки 5**');
-INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('2', 'Имя пункта', 'Описание пункта');
-INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`) VALUES ('2', 'Имя пункта 2');
+INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('2', 'Тестовый элемент чеклиста с описанием и подпунктами', 'Описание подпункта');
+INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('2', 'Тестовый элемент чеклиста с описанием', 'Описание подпункта Описание подпункта Описание подпункта Описание подпункта');
+INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`) VALUES ('2', 'Тестовый элемент чеклиста с подпунктами');
+INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`) VALUES ('2', 'Тестовый элемент чеклиста');
+
 
 
 CREATE TABLE `simple_ckecklist_ml`.`checklist_subitems` (
@@ -62,6 +65,12 @@ INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VA
 INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('1', 'Задано главное зеркало для Яндекса.');
 INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('1', 'Закрыты страницы с динамическими параметрами.');
 INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('1', 'Указана ссылка на карту сайта для роботов');
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('6', 'Описание подпункта');
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('6', 'Описание еще одного подпункта');
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('6', 'И еще одно описание');
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('8', 'Описание подпункта');
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('8', 'Описание еще одного подпункта');
+
 
 CREATE TABLE `simple_ckecklist_ml`.`item_states` (
   `id_item_state` int unsigned NOT NULL AUTO_INCREMENT,
