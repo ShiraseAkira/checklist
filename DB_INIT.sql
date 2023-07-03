@@ -38,3 +38,64 @@ CREATE TABLE `simple_ckecklist_ml`.`checklist_items` (
 
 INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('1', 'Robots.txt', 'Robots.txt - это специальный ... <a href=\"http://google.com\">Google</a>');
 INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('1', 'Sitemap.xml', 'Описание');
+INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('2', 'Имя пункта', 'Описание пункта');
+INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`) VALUES ('2', 'Имя пункта 2');
+
+
+CREATE TABLE `simple_ckecklist_ml`.`checklist_subitems` (
+  `id_subitem` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id_item` INT UNSIGNED NOT NULL,
+  `content` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id_subitem`),
+  INDEX `fk_subitems_items_idx` (`id_item` ASC) VISIBLE,
+  CONSTRAINT `fk_subitems_items`
+    FOREIGN KEY (`id_item`)
+    REFERENCES `simple_ckecklist_ml`.`checklist_items` (`id_item`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('1', 'Закрыты служебные и ненужные разделы.');
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('1', 'Заданы разные User-Agent для Яндекса и других роботов.');
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('1', 'Задано главное зеркало для Яндекса.');
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('1', 'Закрыты страницы с динамическими параметрами.');
+INSERT INTO `simple_ckecklist_ml`.`checklist_subitems` (`id_item`, `content`) VALUES ('1', 'Указана ссылка на карту сайта для роботов');
+
+CREATE TABLE `simple_ckecklist_ml`.`item_states` (
+  `id_item_state` int unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` INT UNSIGNED NOT NULL,
+  `id_item` INT UNSIGNED NOT NULL,
+  `is_checked` TINYINT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_item_state`),
+  UNIQUE KEY `id_user` (`id_user`,`id_item`),
+  INDEX `fk_item_states__items_idx` (`id_item` ASC) VISIBLE,
+  INDEX `fk_item_states__users_idx` (`id_user` ASC) VISIBLE,
+  CONSTRAINT `fk_item_states__items`
+    FOREIGN KEY (`id_item`)
+    REFERENCES `simple_ckecklist_ml`.`checklist_items` (`id_item`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_item_states__users`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `simple_ckecklist_ml`.`users` (`id_user`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `simple_ckecklist_ml`.`subitem_states` (
+  `id_subitem_state` int unsigned NOT NULL AUTO_INCREMENT,
+  `id_user` INT UNSIGNED NOT NULL,
+  `id_subitem` INT UNSIGNED NOT NULL,
+  `is_checked` TINYINT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_subitem_state`),
+  UNIQUE KEY `id_user` (`id_user`,`id_subitem`),
+  INDEX `fk_subitem_states__subitems_idx` (`id_subitem` ASC) VISIBLE,
+  INDEX `fk_subitem_states__users_idx` (`id_user` ASC) VISIBLE,
+  CONSTRAINT `fk_subitem_states__items`
+    FOREIGN KEY (`id_subitem`)
+    REFERENCES `simple_ckecklist_ml`.`checklist_subitems` (`id_subitem`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_subitem_states__users`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `simple_ckecklist_ml`.`users` (`id_user`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
