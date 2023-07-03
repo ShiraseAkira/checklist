@@ -38,6 +38,9 @@ CREATE TABLE `simple_ckecklist_ml`.`checklist_items` (
 
 INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('1', 'Robots.txt', 'Robots.txt - это специальный ... <a href=\"http://google.com\">Google</a>');
 INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('1', 'Sitemap.xml', 'Описание');
+INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('1', '301 редирект', 'Описание ...');
+INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`) VALUES ('1', '404 страница');
+INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`) VALUES ('1', 'Ошибки 5**');
 INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`, `description`) VALUES ('2', 'Имя пункта', 'Описание пункта');
 INSERT INTO `simple_ckecklist_ml`.`checklist_items` (`id_checklist`, `name`) VALUES ('2', 'Имя пункта 2');
 
